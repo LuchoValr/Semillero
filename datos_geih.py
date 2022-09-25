@@ -17,14 +17,10 @@ dato_ocupa_r.info()
 #Fusion de datos
 data=dat_personal_r.merge(dato_ocupa_r, how='left',on=['DIRECTORIO','ORDEN'])
 print(data)
-data1=data[['DIRECTORIO','ORDEN','P6020','P6210','ESC','P6030S3','P6500','P6440']]
-print(data1)
-def edad(x):
-    return 2022-x
-data1['P6030S3'] = data1['P6030S3'].apply(edad)
+data1=data[['DIRECTORIO','ORDEN','P6020','P6210','ESC','P6040','P6500','P6440']]
 print(data1)
 
-data1['EDAD2']=(data1['P6030S3']**2)
+data1['EDAD2']=(data1['P6040']**2)
 print(data1)
 #1 es hombre y 0 mujer
 data1['P6020']=data1['P6020'].replace([2.0], 0)
@@ -36,9 +32,9 @@ print(data1)
 datadropna=data1.dropna()
 print(datadropna)
 #Regresiones con eliminacion de todos los Nan
-x_train=datadropna[['ESC','P6030S3','EDAD2']]
+x_train=datadropna[['ESC','P6040','EDAD2']]
 y_train=datadropna['P6500']
-x_test=datadropna[['ESC','P6030S3','EDAD2']]
+x_test=datadropna[['ESC','P6040','EDAD2']]
 y_test=datadropna['P6500']
 algoritmo=linear_model.LinearRegression()
 algoritmo.fit(x_train, y_train)
